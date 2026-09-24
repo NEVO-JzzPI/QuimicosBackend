@@ -172,6 +172,13 @@ REST_AUTH = {
     'PASSWORD_RESET_SERIALIZER':'accounts.serializers.CustomPasswordResetSerializer',
 }
 
+# Sin esto, corsheaders bloquea por defecto cualquier request que venga
+# de un origen distinto (ej. el Vite dev server en localhost:5173) aunque
+# el resto del backend este bien configurado.
+CORS_ALLOWED_ORIGINS = [
+    f"{os.environ.get('FRONTEND_PROTOCOL')}://{os.environ.get('FRONTEND_URL')}",
+]
+
 SITE_ID = 1
 SIMPLE_JWT = {
 	'AUTH_HEADER_TYPES': ('JWT',),

@@ -16,11 +16,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework_simplejwt.views import TokenVerifyView, TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenVerifyView, TokenRefreshView
+
+# TokenObtainPairView por defecto se reemplaza por CustomTokenObtainPairView
+# (accounts/views.py), que usa un serializer que agrega name/first_lastname/type
+# al access token para que el frontend sepa quien inicio sesion sin llamar a /me/.
+from accounts.views import CustomTokenObtainPairView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('accounts_api/', include('accounts.urls')),
