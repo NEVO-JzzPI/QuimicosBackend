@@ -193,3 +193,5 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = 'email'
 ACCOUNT_SIGNUP_FIELDS = ['email*' , 'password1*', 'password2*']
 ACCOUNT_LOGIN_METHODS = {'email'}
 FRONTEND_URL = os.environ.get("FRONTEND_URL")
+
+CORS_ALLOW_ALL_ORIGINS = True
