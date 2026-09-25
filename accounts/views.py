@@ -16,6 +16,17 @@ from .serializers import *
 from .permissions import IsAdminType
 # Create your views here.
 
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    """
+    Reemplaza la vista de login por defecto de SimpleJWT para que use
+    CustomTokenObtainPairSerializer (el que agrega name/first_lastname/type
+    al access token). Se conecta en el path('token/', ...) de
+    assistrecord/urls.py en vez del TokenObtainPairView original.
+    """
+    serializer_class = CustomTokenObtainPairSerializer
+
+
 class CustomCreateView(APIView):
   permission_classes = [IsAuthenticated, IsAdminType] # Permissions needed to register a new profile, being authenticated
 
