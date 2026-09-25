@@ -52,3 +52,19 @@ class UserCreateSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('re_password')
         return User.objects.create_user(**validated_data)
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = [
+            'id', 'email', 'name', 'first_lastname', 'second_lastname',
+            'type', 'phone', 'position', 'is_active', 'date_registered',
+        ]
+        read_only_fields = ['id', 'date_registered']
+
+
+class SelfUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'name', 'first_lastname', 'type']
